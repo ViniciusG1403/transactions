@@ -1,12 +1,15 @@
 package usuarios.infrastructure.resources;
 
+import jakarta.inject.Inject;
+import jakarta.ws.rs.*;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import transactions.dtos.AutorizeTransaction;
+import transactions.usecases.ValidateTransaction;
 import usuarios.dtos.UsuarioDTO;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
+import usuarios.dtos.UsuarioSetSaldoDTO;
 import usuarios.services.UsuarioService;
 
 /**
@@ -24,5 +27,18 @@ public class UsuarioResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response save(UsuarioDTO dto) {
         return Response.ok(usuarioService.save(dto)).status(Response.Status.CREATED).build();
+    }
+
+    @PUT
+    @Path("/set-saldo")
+    public Response setSaldoUsuario(UsuarioSetSaldoDTO dto) throws Exception {
+        usuarioService.setSaldoUser(dto);
+        return Response.ok("Saldo atualizado com sucesso").build();
+    }
+
+    @GET
+    @Path("/{id}/get-saldo")
+    public Response getSaldoUsuario(@PathParam("id") final Integer id) {
+        return Response.ok(usuarioService.getSaldoUser(id)).build();
     }
 }
