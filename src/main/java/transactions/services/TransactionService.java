@@ -43,11 +43,10 @@ public class TransactionService {
     @RestClient
     private SendNotification sendNotification;
 
-
     @Transactional
     public void createTransaction(TransactionDTO transactionDTO) {
         final Usuario payeer = usuarioRepository.findByIdOptional(
-                Long.valueOf(transactionDTO.getPayerId()))
+                transactionDTO.getPayerId())
             .orElseThrow(() -> new NotFoundException(
                 "Pagador não encontrado com o ID " + transactionDTO.getPayerId()));
 
@@ -55,7 +54,7 @@ public class TransactionService {
         validateTransaction();
 
         final Usuario payee = usuarioRepository.findByIdOptional(
-                Long.valueOf(transactionDTO.getPayeeId()))
+                transactionDTO.getPayeeId())
             .orElseThrow(() -> new NotFoundException(
                 "Beneficiário não encontrado com o ID " + transactionDTO.getPayeeId()));
 
@@ -67,7 +66,8 @@ public class TransactionService {
             transactionRepository.persist(transactionConverter.dtoToOrm(transactionDTO));
             sendNotification();
         } catch (Exception e) {
-            throw new ValidationException("Erro ao realizar a transação, tente novamente mais tarde." + e.getMessage());
+            throw new ValidationException(
+                "Erro ao realizar a transação, tente novamente mais tarde." + e.getMessage());
         }
     }
 
@@ -81,11 +81,16 @@ public class TransactionService {
             throw new ValidationException(
                 "Pagador não possui saldo suficiente para realizar a transação");
         }
+
+        if (Objects.equals(payeer.getId(), transactionDTO.getPayeeId())) {
+            throw new ValidationException(
+                "Pagador não pode ser o mesmo que o beneficiário");
+        }
     }
 
-    private void validateTransaction(){
+    private void validateTransaction() {
         AutorizeTransactionResponseDTO autorizeTransactionResponseDTO = validateTransaction.validate();
-        if(!autorizeTransactionResponseDTO.getMessage().equals("Autorizado")){
+        if (!autorizeTransactionResponseDTO.getMessage().equals("Autorizado")) {
             throw new ValidationException("Transação não autorizada");
         }
     }

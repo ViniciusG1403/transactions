@@ -17,7 +17,7 @@ public class UserAlreadyExistsByDocumento {
 
     private final UsuarioRepository usuarioRepository;
 
-    public boolean execute(final String documento, final Integer id) {
+    public boolean execute(final String documento, final Long id) {
         return usuarioRepository.find("documento", documento).stream().anyMatch(usuario -> {
             return !Objects.equals(usuario.getId(), id);
         });

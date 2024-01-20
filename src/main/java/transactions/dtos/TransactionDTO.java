@@ -14,11 +14,11 @@ import java.math.BigDecimal;
 @Setter
 public class TransactionDTO {
 
-    private Integer id;
+    private Long id;
 
-    private Integer payerId;
+    private Long payerId;
 
-    private Integer payeeId;
+    private Long payeeId;
 
     private BigDecimal valor;
 

@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @Setter
 public class UsuarioDTO {
 
-    private Integer id;
+    private Long id;
 
     @NotNull(message = "O nome é obrigatório")
     private String nome;

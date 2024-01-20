@@ -20,13 +20,13 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "payer_id", nullable = false)
-    private Integer payerId;
+    private Long payerId;
 
     @Column(name = "payee_id", nullable = false)
-    private Integer payeeId;
+    private Long payeeId;
 
     @Column(name = "valor", nullable = false)
     private BigDecimal valor;

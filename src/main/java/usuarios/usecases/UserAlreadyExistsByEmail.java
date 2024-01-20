@@ -17,7 +17,7 @@ public class UserAlreadyExistsByEmail {
 
     private final UsuarioRepository usuarioRepository;
 
-    public boolean execute(final String email, final Integer id) {
+    public boolean execute(final String email, final Long id) {
         return usuarioRepository.find("email", email).stream().anyMatch(usuario -> {
             return !Objects.equals(usuario.getId(), id);
         });

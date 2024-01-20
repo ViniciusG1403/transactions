@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Setter
 public class UsuarioSetSaldoDTO {
 
-    private Integer id;
+    private Long id;
 
     private BigDecimal saldo;
 
