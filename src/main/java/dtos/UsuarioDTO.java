@@ -37,7 +37,7 @@ public class UsuarioDTO {
     @NotNull(message = "O tipo é obrigatório")
     @Min(value = 0, message = "O tipo deve ser 0 - Comum ou 1 - Lojista")
     @Max(value = 1, message = "O tipo deve ser 0 - Comum ou 1 - Lojista")
-    private String type;
+    private Integer type;
 
     @NotNull(message = "O saldo é obrigatório")
     @Min(value = 0, message = "O saldo deve ser maior ou igual a 0")

@@ -1,6 +1,7 @@
 package converters;
 
 import dtos.UsuarioDTO;
+import enumerations.TipoUsuario;
 import infrastructure.entities.Usuario;
 import jakarta.enterprise.context.RequestScoped;
 
@@ -19,7 +20,7 @@ public class UsuarioConverter {
         usuario.setDocumento(dto.getDocumento());
         usuario.setEmail(dto.getEmail());
         usuario.setPassword(dto.getPassword());
-        usuario.setType(dto.getType());
+        usuario.setType(TipoUsuario.valueOf(dto.getType()));
         usuario.setSaldo(dto.getSaldo());
         return usuario;
     }
@@ -31,7 +32,7 @@ public class UsuarioConverter {
         dto.setDocumento(usuario.getDocumento());
         dto.setEmail(usuario.getEmail());
         dto.setPassword(usuario.getPassword());
-        dto.setType(usuario.getType());
+        dto.setType(TipoUsuario.valueOf(usuario.getType()));
         dto.setSaldo(usuario.getSaldo());
         return dto;
     }

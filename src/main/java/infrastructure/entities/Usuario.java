@@ -1,5 +1,6 @@
 package infrastructure.entities;
 
+import enumerations.TipoUsuario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,8 +35,9 @@ public class Usuario {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "type", nullable = false)
-    private String type;
+    private TipoUsuario type;
 
     @Column(name = "saldo", nullable = false)
     private BigDecimal saldo;
