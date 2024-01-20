@@ -1,0 +1,13 @@
+quarkus:
+  datasource:
+    db-kind: h2
+    jdbc:
+      url: jdbc:h2:mem:default
+      max-size: 13
+    username: username-default
+    password: password-default
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+    log:
+      sql: true
