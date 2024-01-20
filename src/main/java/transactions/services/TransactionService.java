@@ -11,6 +11,8 @@ import transactions.converters.TransactionConverter;
 import transactions.dtos.AutorizeTransactionResponseDTO;
 import transactions.dtos.SendNotificationResponseDTO;
 import transactions.dtos.TransactionDTO;
+import transactions.dtos.TransactionResponseDTO;
+import transactions.infrastructure.entities.Transaction;
 import transactions.infrastructure.repositories.TransactionRepository;
 import transactions.usecases.SendNotification;
 import transactions.usecases.ValidateTransaction;
@@ -18,6 +20,7 @@ import usuarios.enumerations.TipoUsuario;
 import usuarios.infrastructure.entities.Usuario;
 import usuarios.infrastructure.repositories.UsuarioRepository;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -42,6 +45,65 @@ public class TransactionService {
     @Inject
     @RestClient
     private SendNotification sendNotification;
+
+    public TransactionResponseDTO findById(Long id) {
+        Transaction transaction = transactionRepository.findByIdOptional(id)
+            .orElseThrow(() -> new NotFoundException("Transação não encontrada"));
+
+        Usuario payee = usuarioRepository.findByIdOptional(transaction.getPayeeId())
+            .orElseThrow(() -> new NotFoundException("Beneficiário não encontrado"));
+
+        Usuario payer = usuarioRepository.findByIdOptional(transaction.getPayerId())
+            .orElseThrow(() -> new NotFoundException("Pagador não encontrado"));
+
+        TransactionResponseDTO response = new TransactionResponseDTO();
+        response.setIdTransacao(transaction.getId());
+        response.setValor(transaction.getValor());
+        response.setPayerName(payer.getNome());
+        response.setPayeeName(payee.getNome());
+
+        return response;
+    }
+
+    public List<TransactionResponseDTO> findAllByPayer(Long id) {
+        List<Transaction> transactions = transactionRepository.find("payerId", id).stream().toList();
+
+        Usuario payer = usuarioRepository.findByIdOptional(id)
+            .orElseThrow(() -> new NotFoundException("Pagador não encontrado"));
+
+        return transactions.stream().map(transaction -> {
+            Usuario payee = usuarioRepository.findByIdOptional(transaction.getPayeeId())
+                .orElseThrow(() -> new NotFoundException("Beneficiário não encontrado"));
+
+            TransactionResponseDTO response = new TransactionResponseDTO();
+            response.setIdTransacao(transaction.getId());
+            response.setValor(transaction.getValor());
+            response.setPayerName(payer.getNome());
+            response.setPayeeName(payee.getNome());
+
+            return response;
+        }).toList();
+    }
+
+    public List<TransactionResponseDTO> findAllByPayee(Long id) {
+        List<Transaction> transactions = transactionRepository.find("payeeId", id).stream().toList();
+
+        Usuario payee = usuarioRepository.findByIdOptional(id)
+            .orElseThrow(() -> new NotFoundException("Pagador não encontrado"));
+
+        return transactions.stream().map(transaction -> {
+            Usuario payer = usuarioRepository.findByIdOptional(transaction.getPayerId())
+                .orElseThrow(() -> new NotFoundException("Beneficiário não encontrado"));
+
+            TransactionResponseDTO response = new TransactionResponseDTO();
+            response.setIdTransacao(transaction.getId());
+            response.setValor(transaction.getValor());
+            response.setPayeeName(payer.getNome());
+            response.setPayerName(payee.getNome());
+
+            return response;
+        }).toList();
+    }
 
     @Transactional
     public void createTransaction(TransactionDTO transactionDTO) {

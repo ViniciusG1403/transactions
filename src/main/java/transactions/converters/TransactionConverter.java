@@ -2,6 +2,7 @@ package transactions.converters;
 
 import jakarta.enterprise.context.RequestScoped;
 import transactions.dtos.TransactionDTO;
+import transactions.dtos.TransactionResponseDTO;
 import transactions.infrastructure.entities.Transaction;
 
 /**

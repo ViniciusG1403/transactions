@@ -1,9 +1,6 @@
 package transactions.infrastructure.resource;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +24,27 @@ public class TransactionResource {
     public Response createTransaction(TransactionDTO dto) {
         transactionService.createTransaction(dto);
         return Response.ok().status(Response.Status.CREATED).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTransaction(@PathParam("id") Long id) {
+        return Response.ok(transactionService.findById(id)).build();
+    }
+
+    @GET
+    @Path("/{id}/payer/transactions")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTransactions(@PathParam("id") Long id) {
+        return Response.ok(transactionService.findAllByPayer(id)).build();
+    }
+
+    @GET
+    @Path("/{id}/payee/transactions")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTransactionsByPayee(@PathParam("id") Long id) {
+        return Response.ok(transactionService.findAllByPayee(id)).build();
     }
 
 }
