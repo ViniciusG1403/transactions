@@ -1,13 +1,11 @@
 package transactions.usecases;
 
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.inject.Default;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import transactions.dtos.AutorizeTransaction;
+import transactions.dtos.AutorizeTransactionDTO;
 
 /**
  * @author Vinicius Gabriel <vinicius.prado@nexuscloud.com.br>
@@ -20,5 +18,5 @@ public interface ValidateTransaction {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public AutorizeTransaction validate();
+    public AutorizeTransactionDTO validate();
 }

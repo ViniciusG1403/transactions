@@ -7,7 +7,7 @@ import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import transactions.converters.TransactionConverter;
-import transactions.dtos.AutorizeTransaction;
+import transactions.dtos.AutorizeTransactionDTO;
 import transactions.dtos.TransactionDTO;
 import transactions.infrastructure.repositories.TransactionRepository;
 import transactions.usecases.ValidateTransaction;
@@ -75,8 +75,8 @@ public class TransactionService {
     }
 
     private void validateTransaction(){
-        AutorizeTransaction autorizeTransaction = validateTransaction.validate();
-        if(!autorizeTransaction.getMessage().equals("Autorizado")){
+        AutorizeTransactionDTO autorizeTransactionDTO = validateTransaction.validate();
+        if(!autorizeTransactionDTO.getMessage().equals("Autorizado")){
             throw new ValidationException("Transação não autorizada");
         }
     }

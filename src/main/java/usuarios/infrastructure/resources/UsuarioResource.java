@@ -1,10 +1,6 @@
 package usuarios.infrastructure.resources;
 
-import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-import transactions.dtos.AutorizeTransaction;
-import transactions.usecases.ValidateTransaction;
 import usuarios.dtos.UsuarioDTO;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

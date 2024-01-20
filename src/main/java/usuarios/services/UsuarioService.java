@@ -41,6 +41,24 @@ public class UsuarioService {
         return converter.ormToDto(orm);
     }
 
+    @Transactional
+    public void setSaldoUser(UsuarioSetSaldoDTO dto) throws Exception {
+        try {
+            Usuario usuario = usuarioRepository.findByIdOptional(Long.valueOf(dto.getId()))
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
+            usuario.setSaldo(usuario.getSaldo().add(dto.getSaldo()));
+            usuarioRepository.persist(usuario);
+        } catch (Exception e) {
+            throw new Exception("Erro ao atualizar o saldo do usuário: " + e.getMessage());
+        }
+    }
+
+    public BigDecimal getSaldoUser(Integer id) {
+        Usuario usuario = usuarioRepository.findByIdOptional(Long.valueOf(id))
+            .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
+        return usuario.getSaldo();
+    }
+
     private void validate(UsuarioDTO dto) {
         if (dto.getNome() == null || dto.getNome().isEmpty()) {
             throw new ValidationException("O nome deve ser preenchido");
@@ -62,29 +80,5 @@ public class UsuarioService {
         if (userAlreadyExistsByDocumento.execute(dto.getDocumento(), dto.getId())) {
             throw new ValidationException("Já existe um usuário com esse documento");
         }
-    }
-
-    @Transactional
-    public void setSaldoUser(UsuarioSetSaldoDTO dto) throws Exception {
-        try {
-            Usuario usuario = usuarioRepository.findByIdOptional(Long.valueOf(dto.getId()))
-                .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
-            usuario.setSaldo(usuario.getSaldo().add(dto.getSaldo()));
-            usuarioRepository.persist(usuario);
-        } catch (Exception e) {
-            throw new Exception("Erro ao atualizar o saldo do usuário: " + e.getMessage());
-        }
-    }
-
-    public UsuarioDTO findById(Integer id) {
-        Usuario usuario = usuarioRepository.findByIdOptional(Long.valueOf(id))
-            .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
-        return converter.ormToDto(usuario);
-    }
-
-    public BigDecimal getSaldoUser(Integer id) {
-        Usuario usuario = usuarioRepository.findByIdOptional(Long.valueOf(id))
-            .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
-        return usuario.getSaldo();
     }
 }
