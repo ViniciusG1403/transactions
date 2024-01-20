@@ -25,6 +25,9 @@ public class UsuarioDTO {
     @NotNull(message = "O nome é obrigatório")
     private String nome;
 
+    @NotNull(message = "O documento é obrigatório")
+    private String documento;
+
     @NotNull(message = "O email é obrigatório")
     private String email;
 

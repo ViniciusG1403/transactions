@@ -1,4 +1,4 @@
-package entities;
+package infrastructure.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,6 +24,9 @@ public class Usuario {
 
     @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "documento", nullable = false)
+    private String documento;
 
     @Column(name = "email", nullable = false)
     private String email;
