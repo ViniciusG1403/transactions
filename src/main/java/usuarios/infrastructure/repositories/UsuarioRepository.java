@@ -1,6 +1,6 @@
-package infrastructure.repositories;
+package usuarios.infrastructure.repositories;
 
-import infrastructure.entities.Usuario;
+import usuarios.infrastructure.entities.Usuario;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 /**

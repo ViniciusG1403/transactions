@@ -1,13 +1,13 @@
-package infrastructure.resources;
+package usuarios.infrastructure.resources;
 
-import dtos.UsuarioDTO;
+import usuarios.dtos.UsuarioDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
-import services.UsuarioService;
+import usuarios.services.UsuarioService;
 
 /**
  * @author Vinicius Gabriel <vinicius.prado@nexuscloud.com.br>

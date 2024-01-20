@@ -1,19 +1,15 @@
-package services;
+package usuarios.services;
 
-import converters.UsuarioConverter;
-import dtos.UsuarioDTO;
-import infrastructure.entities.Usuario;
-import infrastructure.repositories.UsuarioRepository;
+import usuarios.converters.UsuarioConverter;
+import usuarios.dtos.UsuarioDTO;
+import usuarios.infrastructure.entities.Usuario;
+import usuarios.infrastructure.repositories.UsuarioRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
-import usecases.UserAlreadyExistsByDocumento;
-import usecases.UserAlreadyExistsByEmail;
-
-import java.math.BigDecimal;
-import java.util.List;
+import usuarios.usecases.UserAlreadyExistsByDocumento;
+import usuarios.usecases.UserAlreadyExistsByEmail;
 
 /**
  * @author Vinicius Gabriel <vinicius.prado@nexuscloud.com.br>

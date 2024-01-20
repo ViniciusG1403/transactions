@@ -1,4 +1,4 @@
-package infrastructure.repositories;
+package usuarios.infrastructure.repositories;
 
 import jakarta.enterprise.context.RequestScoped;
 

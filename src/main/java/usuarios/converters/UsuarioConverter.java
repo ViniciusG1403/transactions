@@ -1,8 +1,8 @@
-package converters;
+package usuarios.converters;
 
-import dtos.UsuarioDTO;
-import enumerations.TipoUsuario;
-import infrastructure.entities.Usuario;
+import usuarios.dtos.UsuarioDTO;
+import usuarios.enumerations.TipoUsuario;
+import usuarios.infrastructure.entities.Usuario;
 import jakarta.enterprise.context.RequestScoped;
 
 /**

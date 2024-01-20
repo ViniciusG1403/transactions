@@ -1,4 +1,4 @@
-package enumerations;
+package usuarios.enumerations;
 
 /**
  * @author Vinicius Gabriel <vinicius.prado@nexuscloud.com.br>

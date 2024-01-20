@@ -1,4 +1,4 @@
-package dtos;
+package usuarios.dtos;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.persistence.Column;

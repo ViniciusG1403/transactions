@@ -1,6 +1,6 @@
-package usecases;
+package usuarios.usecases;
 
-import infrastructure.repositories.UsuarioRepository;
+import usuarios.infrastructure.repositories.UsuarioRepository;
 import jakarta.enterprise.context.RequestScoped;
 import lombok.RequiredArgsConstructor;
 
@@ -13,12 +13,12 @@ import java.util.Objects;
  */
 @RequestScoped
 @RequiredArgsConstructor
-public class UserAlreadyExistsByDocumento {
+public class UserAlreadyExistsByEmail {
 
     private final UsuarioRepository usuarioRepository;
 
-    public boolean execute(final String documento, final Integer id) {
-        return usuarioRepository.find("documento", documento).stream().anyMatch(usuario -> {
+    public boolean execute(final String email, final Integer id) {
+        return usuarioRepository.find("email", email).stream().anyMatch(usuario -> {
             return !Objects.equals(usuario.getId(), id);
         });
     }

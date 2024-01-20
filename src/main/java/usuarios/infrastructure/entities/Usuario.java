@@ -1,6 +1,6 @@
-package infrastructure.entities;
+package usuarios.infrastructure.entities;
 
-import enumerations.TipoUsuario;
+import usuarios.enumerations.TipoUsuario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
