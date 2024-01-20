@@ -2,14 +2,17 @@ package transactions.services;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import transactions.converters.TransactionConverter;
-import transactions.dtos.AutorizeTransactionDTO;
+import transactions.dtos.AutorizeTransactionResponseDTO;
+import transactions.dtos.SendNotificationResponseDTO;
 import transactions.dtos.TransactionDTO;
 import transactions.infrastructure.repositories.TransactionRepository;
+import transactions.usecases.SendNotification;
 import transactions.usecases.ValidateTransaction;
 import usuarios.enumerations.TipoUsuario;
 import usuarios.infrastructure.entities.Usuario;
@@ -36,7 +39,12 @@ public class TransactionService {
     @RestClient
     private ValidateTransaction validateTransaction;
 
+    @Inject
+    @RestClient
+    private SendNotification sendNotification;
 
+
+    @Transactional
     public void createTransaction(TransactionDTO transactionDTO) {
         final Usuario payeer = usuarioRepository.findByIdOptional(
                 Long.valueOf(transactionDTO.getPayerId()))
@@ -51,14 +59,15 @@ public class TransactionService {
             .orElseThrow(() -> new NotFoundException(
                 "Beneficiário não encontrado com o ID " + transactionDTO.getPayeeId()));
 
-        payeer.setSaldo(payeer.getSaldo().subtract(transactionDTO.getValue()));
-        payee.setSaldo(payee.getSaldo().add(transactionDTO.getValue()));
+        payeer.setSaldo(payeer.getSaldo().subtract(transactionDTO.getValor()));
+        payee.setSaldo(payee.getSaldo().add(transactionDTO.getValor()));
         try {
             usuarioRepository.persist(payeer);
             usuarioRepository.persist(payee);
             transactionRepository.persist(transactionConverter.dtoToOrm(transactionDTO));
+            sendNotification();
         } catch (Exception e) {
-            throw new ValidationException("Erro ao realizar a transação, tente novamente mais tarde.");
+            throw new ValidationException("Erro ao realizar a transação, tente novamente mais tarde." + e.getMessage());
         }
     }
 
@@ -68,16 +77,23 @@ public class TransactionService {
                 "Lojistas não podem enviar transferencias, somente receber.");
         }
 
-        if (payeer.getSaldo().compareTo(transactionDTO.getValue()) < 0) {
+        if (payeer.getSaldo().compareTo(transactionDTO.getValor()) < 0) {
             throw new ValidationException(
                 "Pagador não possui saldo suficiente para realizar a transação");
         }
     }
 
     private void validateTransaction(){
-        AutorizeTransactionDTO autorizeTransactionDTO = validateTransaction.validate();
-        if(!autorizeTransactionDTO.getMessage().equals("Autorizado")){
+        AutorizeTransactionResponseDTO autorizeTransactionResponseDTO = validateTransaction.validate();
+        if(!autorizeTransactionResponseDTO.getMessage().equals("Autorizado")){
             throw new ValidationException("Transação não autorizada");
+        }
+    }
+
+    private void sendNotification() {
+        SendNotificationResponseDTO sendNotificationResponseDTO = sendNotification.send();
+        if (!sendNotificationResponseDTO.getMessage().equals("true")) {
+            throw new ValidationException("Notificação não enviada");
         }
     }
 }

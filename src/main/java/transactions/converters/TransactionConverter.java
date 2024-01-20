@@ -17,7 +17,7 @@ public class TransactionConverter {
         transaction.setId(dto.getId());
         transaction.setPayerId(dto.getPayerId());
         transaction.setPayeeId(dto.getPayeeId());
-        transaction.setValue(dto.getValue());
+        transaction.setValor(dto.getValor());
         return transaction;
     }
 
@@ -26,7 +26,7 @@ public class TransactionConverter {
         dto.setId(transaction.getId());
         dto.setPayerId(transaction.getPayerId());
         dto.setPayeeId(transaction.getPayeeId());
-        dto.setValue(transaction.getValue());
+        dto.setValor(transaction.getValor());
         return dto;
     }
 

@@ -3,8 +3,6 @@ package transactions.dtos;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 /**
  * @author Vinicius Gabriel <vinicius.prado@nexuscloud.com.br>
  * @version 1.0
@@ -12,15 +10,8 @@ import java.math.BigDecimal;
  */
 @Getter
 @Setter
-public class TransactionDTO {
+public class AutorizeTransactionResponseDTO {
 
-    private Integer id;
-
-    private Integer payerId;
-
-    private Integer payeeId;
-
-    private BigDecimal valor;
-
+    private String message;
 
 }

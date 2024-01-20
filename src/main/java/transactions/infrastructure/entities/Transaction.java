@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
-@Table(name = "transactions")
+@Table(name = "transacoes")
 public class Transaction {
 
     @Id
@@ -28,7 +28,7 @@ public class Transaction {
     @Column(name = "payee_id", nullable = false)
     private Integer payeeId;
 
-    @Column(name = "value", nullable = false)
-    private BigDecimal value;
+    @Column(name = "valor", nullable = false)
+    private BigDecimal valor;
 
 }

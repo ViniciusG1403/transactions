@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class AutorizeTransactionDTO {
+public class SendNotificationResponseDTO {
 
     private String message;
 
