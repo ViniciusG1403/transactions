@@ -1,0 +1,8 @@
+usuario:
+  - id: 1
+    nome: "UserComum"
+    documento: "1234567890"
+    email: "usercomum@mail.com"
+    password: "123456"
+    type: 0
+    saldo: 0

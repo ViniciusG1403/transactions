@@ -39,6 +39,13 @@
       <artifactId>quarkus-jdbc-h2</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.github.database-rider</groupId>
+      <artifactId>rider-cdi</artifactId>
+      <version>1.41.0</version>
+      <scope>test</scope>
+      <classifier>jakarta</classifier>
+    </dependency>
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-container-image-docker</artifactId>
     </dependency>
