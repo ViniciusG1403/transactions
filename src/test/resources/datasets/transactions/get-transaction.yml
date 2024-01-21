@@ -1,0 +1,22 @@
+usuario:
+  - id: 1
+    nome: "UserComum"
+    documento: "1234567890"
+    email: "usercomum@mail.com"
+    password: "123456"
+    type: 0
+    saldo: 1500
+
+  - id: 2
+    nome: "UserLojista"
+    documento: "1234567890"
+    email: "userlojista@mail.com"
+    password: "123456"
+    type: 1
+    saldo: 1500
+
+transacoes:
+  - id: 1
+    payer_id: 1
+    payee_id: 2
+    valor: 500
