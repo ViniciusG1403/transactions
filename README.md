@@ -21,7 +21,7 @@ Pré-requisitos: Java 17, Maven e Docker
 
 ```bash
 # Clone este repositório
-git clone
+git clone git@github.com:ViniciusG1403/transactions.git
 
 # Acesse a pasta do projeto no terminal/cmd e rode o seguinte comando estando na pasta raiz do projeto
  ./mvnw install -Dquarkus.container-image.build=true 
