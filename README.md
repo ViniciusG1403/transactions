@@ -33,11 +33,11 @@ Somente rodar o comando:
 git clone git@github.com:ViniciusG1403/transactions.git
 
 # Acesse a pasta do projeto no terminal/cmd e rode o seguinte comando estando na pasta raiz do projeto
- ./mvnw install -Dquarkus.container-image.build=true 
+ ./mvnw install
 
 Após
 
-docker run -p 8080:8080 nexuscloud/bank-transactions:1.0.0-SNAPSHOT
+docker run -p 8080:8080 viniciusgabriel/banktransactions:v1
 ```
 
 ## O arquivo banktransactions.json contém os exemplos de chamada para os endpoints
