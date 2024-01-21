@@ -40,3 +40,5 @@ Após
 docker run -p 8080:8080 nexuscloud/bank-transactions:1.0.0-SNAPSHOT
 ```
 
+## O arquivo banktransactions.json contém os exemplos de chamada para os endpoints
+
