@@ -15,10 +15,19 @@ unitarios e integração utilizando JUnit e Mockito.
 
 ## Como executar o projeto
 
-Pré-requisitos: Java 17, Maven e Docker
+Pré-requisitos: Java 17, Maven e Docker caso queira rodar em container
+
+
 
 ### Rodando a aplicação
 
+### Em modo DEV:
+```bash
+Somente rodar o comando:
+
+./mvnw compile quarkus:dev
+```
+### Em container docker:
 ```bash
 # Clone este repositório
 git clone git@github.com:ViniciusG1403/transactions.git
